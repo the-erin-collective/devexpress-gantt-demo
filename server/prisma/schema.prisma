@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Task {
+  id                  Int                  @id
+  parent_id           Int?
+  title               String
+  description         String?
+  start               DateTime
+  end                 DateTime
+  actual_start        DateTime?
+  actual_end          DateTime?
+  progress            Int
+  employees           String?
+}
+
+model Dependency {
+  id           Int @id 
+  parent_id    Int
+  dependent_id Int
+  type         Int
+}
+
+model Resource {
+  id                  Int                  @id 
+  name                String
+}
+
+model ResourceAssignment {
+  id          Int      @id 
+  task_id     Int
+  resource_id Int
+}
